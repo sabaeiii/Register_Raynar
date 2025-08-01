@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - Neon Universe</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      height: 100vh;
+      background: linear-gradient(45deg, #ff00ff, #00e5ff, #ff007f, #7f00ff);
+      background-size: 400% 400%;
+      animation: gradientAnimation 10s ease infinite;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    @keyframes gradientAnimation {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    /* Form Container */
+    .form-container {
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(15px);
+      border-radius: 25px;
+      padding: 40px;
+      width: 450px;
+      box-shadow: 0 0 50px rgba(255, 0, 255, 0.8);
+      animation: fadeIn 1.5s ease-out;
+      overflow: hidden;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 36px;
+      color: #ff00ff;
+      margin-bottom: 30px;
+      text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff007f, 0 0 40px #7f00ff;
+    }
+
+    /* Input Fields */
+    input, select {
+      width: 100%;
+      padding: 18px;
+      margin: 12px 0;
+      border: none;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      font-size: 18px;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    input::placeholder {
+      color: #ff00ff;
+      opacity: 0.7;
+    }
+
+    input:focus {
+      border: 2px solid #ff00ff;
+      box-shadow: 0 0 15px #ff00ff;
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    /* Gender Group */
+    .gender-group {
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    label {
+      font-size: 16px;
+      color: #ccc;
+    }
+
+    /* Submit Button */
+    button {
+      width: 100%;
+      padding: 18px;
+      background: linear-gradient(90deg, #ff007f, #ff00ff);
+      border: none;
+      border-radius: 12px;
+      font-size: 18px;
+      color: white;
+      cursor: pointer;
+      margin-top: 30px;
+      transition: 0.3s ease-in-out;
+      box-shadow: 0 0 20px #ff007f, 0 0 40px #ff00ff;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 30px #ff007f, 0 0 50px #ff00ff;
+    }
+
+    /* Table Styling */
+    table {
+      width: 100%;
+      margin-top: 40px;
+      border-collapse: collapse;
+      color: #fff;
+      font-size: 16px;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 15px;
+      box-shadow: 0 0 20px #ff00ff;
+    }
+
+    th, td {
+      padding: 14px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+      text-align: left;
+    }
+
+    th {
+      color: #ff00ff;
+      text-shadow: 0 0 5px #ff00ff, 0 0 15px #ff007f;
+    }
+
+    tr:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 500px) {
+      .form-container {
+        width: 90%;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h1>Neon Register</h1>
+    <form id="registerform">
+      <input type="text" id="nama" placeholder="Nama Lengkap" required />
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <input type="number" id="nomorHP" placeholder="Nomor HP" required />
+      <input type="date" id="tanggal" required />
+
+      <div class="gender-group">
+        <label><input type="radio" name="gender" value="Laki-laki" required /> Laki-laki</label>
+        <label><input type="radio" name="gender" value="Perempuan" /> Perempuan</label>
+      </div>
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <table id="dataTable">
+      <thead>
+        <tr>
+          <th>Nama</th>
+          <th>Email</th>
+          <th>Nomor HP</th>
+          <th>Tanggal Lahir</th>
+          <th>Jenis Kelamin</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Data will be inserted here -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    // Function to create a new table row
+    function insertRow(nama, email, nomorHP, tanggal, gender) {
+      const table = document.getElementById("dataTable").querySelector("tbody");
+      const newRow = table.insertRow();
+
+      newRow.insertCell(0).textContent = nama;
+      newRow.insertCell(1).textContent = email;
+      newRow.insertCell(2).textContent = nomorHP;
+      newRow.insertCell(3).textContent = tanggal;
+      newRow.insertCell(4).textContent = gender;
+
+      // Scroll to the last row (added row)
+      window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    document.getElementById("registerform").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const nama = document.getElementById("nama").value;
+      const email = document.getElementById("email").value;
+      const nomorHP = document.getElementById("nomorHP").value;
+      const tanggal = document.getElementById("tanggal").value;
+      const gender = document.querySelector('input[name="gender"]:checked')?.value || '';
+
+      // Call function to insert row into table
+      insertRow(nama, email, nomorHP, tanggal, gender);
+
+      // Reset the form after submission
+      document.getElementById("registerform").reset();
+    });
+
+    // Example to fill the table with random data (can be removed later)
+     // Add random data every 10 seconds
+  </script>
+
+</body>
+</html>
