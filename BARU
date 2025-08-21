@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register | NVIDIA Style Form</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+      color: #e0e0e0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      padding: 20px;
+    }
+
+    .form-container {
+      background-color: #1e1e1e;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 30px rgba(0, 255, 150, 0.1);
+      max-width: 500px;
+      width: 100%;
+      border: 1px solid #00ff99;
+      animation: fadeIn 1s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .form-container h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #00ff99;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #a0ffa0;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="date"],
+    .form-group input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #444;
+      border-radius: 8px;
+      background-color: #2a2a2a;
+      color: #fff;
+      transition: border 0.3s, box-shadow 0.3s;
+    }
+
+    .form-group input:focus {
+      border-color: #00ff99;
+      box-shadow: 0 0 8px #00ff99;
+      outline: none;
+    }
+
+    .gender-group {
+      display: flex;
+      gap: 20px;
+    }
+
+    .gender-group label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .form-group button {
+      width: 100%;
+      padding: 15px;
+      background-color: #00ff99;
+      border: none;
+      border-radius: 8px;
+      color: #000;
+      font-weight: bold;
+      font-size: 16px;
+      transition: background 0.3s;
+      cursor: pointer;
+    }
+
+    .form-group button:hover {
+      background-color: #00cc77;
+    }
+
+    .success-message {
+      text-align: center;
+      margin-top: 20px;
+      color: #00ff99;
+      font-weight: bold;
+    }
+
+    @media (max-width: 600px) {
+      .form-container {
+        padding: 30px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Register Account</h2>
+    <form id="registerForm">
+      <div class="form-group">
+        <label for="nama">Full Name</label>
+        <input type="text" id="nama" placeholder="Enter your full name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="you@example.com" required>
+      </div>
+
+      <div class="form-group">
+        <label for="tanggal">Date of Birth</label>
+        <input type="date" id="tanggal" required>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Create a password" required>
+      </div>
+
+      <div class="form-group">
+        <label>Gender</label>
+        <div class="gender-group">
+          <label><input type="radio" name="gender" value="Laki-laki" required> Male</label>
+          <label><input type="radio" name="gender" value="Perempuan" required> Female</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button type="submit">Create Account</button>
+      </div>
+    </form>
+
+    <div class="success-message" id="successMsg" style="display: none;">
+      🎉 Registration Successful!
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("registerForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const nama = document.getElementById("nama").value;
+      const email = document.getElementById("email").value;
+      const tanggal = document.getElementById("tanggal").value;
+      const password = document.getElementById("password").value;
+      const gender = document.querySelector("input[name='gender']:checked").value;
+
+      const user = {
+        nama: nama,
+        email: email,
+        password: password,
+        tanggal: tanggal,
+        gender: gender
+      };
+
+      localStorage.setItem(email, JSON.stringify(user));
+
+      document.getElementById("successMsg").style.display = "block";
+      this.reset(); // clear the form
+    });
+  </script>
+</body>
+</html>
