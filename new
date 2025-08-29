@@ -1,0 +1,45 @@
+// REGISTER FORM HANDLER
+const registerForm = document.getElementById("registerForm");
+if (registerForm) {
+  registerForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const nama = document.getElementById("nama").value;
+    const email = document.getElementById("email").value;
+    const tanggal = document.getElementById("tanggal").value;
+    const password = document.getElementById("password").value;
+    const gender = document.querySelector("input[name='gender']:checked").value;
+
+    const user = {
+      nama: nama,
+      email: email,
+      password: password,
+      tanggal: tanggal,
+      gender: gender
+    };
+
+    localStorage.setItem(email, JSON.stringify(user));
+
+    document.getElementById("successMsg").style.display = "block";
+    registerForm.reset();
+  });
+}
+
+// LOGIN FORM HANDLER
+const loginForm = document.getElementById("loginForm");
+if (loginForm) {
+  loginForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const email = document.getElementById("loginEmail").value;
+    const password = document.getElementById("loginPassword").value;
+
+    const storedUser = JSON.parse(localStorage.getItem(email));
+
+    if (storedUser && storedUser.password === password) {
+      document.getElementById("loginSuccess").style.display = "block";
+      document.getElementById("loginError").style.display = "none";
+      loginForm.reset();
+    } else {
+      document.getElementById("loginError").style.display = "block";
+      document.getElementById("loginSuccess
